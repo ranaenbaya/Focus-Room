@@ -1,117 +1,130 @@
-/* ========== General Styles ========== */
-body {
-  font-family: 'Press Start 2P', cursive;
-  background: linear-gradient(135deg, #EED6F0, #D6F0EE); /* soft pastel gradient */
-  color: #4B3F72; /* deep pastel purple for readability */
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+    background-color: #000;
 }
 
-h1 {
-  color: #C18AFF; /* pastel violet */
-  margin: 20px 0 10px 0;
-  font-size: 32px;
-  text-shadow: 1px 1px #A48ED6;
-}
-
-/* ========== Timer ========== */
-#timerDisplay {
-  font-size: 28px;
-  margin: 10px 0;
-  color: #FFB3C6; /* pastel pink */
-  text-shadow: 1px 1px #D6A8B9;
-  font-weight: bold;
-}
-
-/* ========== Buttons ========== */
-button {
-  margin: 5px;
-  padding: 12px 22px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #A8D6FF; /* pastel blue */
-  border: 2px solid #C18AFF; /* pastel purple border */
-  color: #4B3F72; /* readable dark pastel text */
-  font-family: 'Press Start 2P', cursive;
-  transition: all 0.2s ease-in-out;
-  border-radius: 6px;
-  box-shadow: 2px 2px #D6C6F0;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: #C18AFF; /* pastel violet on hover */
-  color: #FFFFFF;
-  transform: scale(1.08);
-  box-shadow: 4px 4px #D6B3FF;
-}
-
-/* ========== Room ========== */
+/* Main room */
 #room {
-  width: 520px;
-  height: 320px;
-  margin: 20px 0;
-  background-color: #F0E0FF; /* soft pastel purple room */
-  border: 3px solid #C18AFF;
-  position: relative;
-  background-image: url('https://i.imgur.com/v7GdU4k.png'); /* optional floor/wall */
-  background-size: cover;
-  box-shadow: 4px 4px #D6C6F0;
-  border-radius: 8px;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("image.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* ========== Furniture ========== */
-.furniture {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background-image: url('https://i.imgur.com/8QKqbgJ.png'); /* pixel furniture */
-  background-size: cover;
-  image-rendering: pixelated;
-  border: 2px solid #FFB3C6; /* pastel pink accent */
-  box-shadow: 2px 2px #D6C6F0;
-  transition: transform 0.2s, box-shadow 0.2s;
+/* BIG TIMER */
+#timerDisplay {
+    position: absolute;
+    top: 30px; /* updated position */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 35px;
+    font-size: 38px;
+    background-color: rgba(0,0,0,0.5);
+    border: 4px solid white;
+    border-radius: 10px;
 }
 
-.furniture:hover {
-  transform: scale(1.1);
-  box-shadow: 4px 4px #C18AFF;
+/* Reset timer button */
+#resetTimerBtn {
+    position: absolute;
+    top: 110px; /* below timer */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 60px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #fbe4c8;
+    color: #4a2d23;
+    border: 5px solid #4a2d23;
+    border-radius: 10px;
+    box-shadow: 0px 5px 0px #4a2d23;
+    text-align: center;
 }
 
-/* ========== Points Display ========== */
-#points {
-  font-size: 18px;
-  color: #C18AFF; /* pastel violet */
-  margin-top: 10px;
-  text-shadow: 1px 1px #D6A8B9;
-  font-weight: bold;
+#resetTimerBtn:active {
+    box-shadow: 0px 2px 0px #4a2d23;
+    transform: translateY(3px);
 }
 
-/* ========== Character ========== */
+/* Character */
 #character {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 10px;
-  left: 200px;
-  background-image: url('character.png'); /* pixel character */
-  background-size: cover;
-  image-rendering: pixelated;
-  transition: transform 0.3s, box-shadow 0.3s;
-  border: 2px solid #A8D6FF; /* pastel blue accent */
-  box-shadow: 2px 2px #D6C6F0;
+    position: absolute;
+    width: 110px;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    image-rendering: pixelated;
 }
 
-#character:hover {
-  transform: scale(1.12);
-  box-shadow: 4px 4px #C18AFF;
+/* Buttons */
+.pixel-btn {
+    padding: 25px 100px;
+    background: #fbe4c8;
+    color: #4a2d23;
+    border: 5px solid #4a2d23;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0px 5px 0px #4a2d23;
+    text-align: center;
+    position: absolute;
+}
+
+.pixel-btn:active {
+    box-shadow: 0px 2px 0px #4a2d23;
+    transform: translateY(3px);
+}
+
+/* Button positions */
+#buyBtn {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-120%);
+}
+
+#pointsBtn {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(20%);
+}
+
+/* Furniture selection menu */
+#furnitureMenu {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0,0,0,0.8);
+    padding: 10px;
+    border: 3px solid white;
+    border-radius: 10px;
+    z-index: 1000;
+    display: none;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#furnitureMenu img {
+    width: 60px;
+    height: 60px;
+    cursor: grab;
+    image-rendering: pixelated;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+/* Furniture in room */
+.furniture {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    cursor: grab;
+    image-rendering: pixelated;
 }
