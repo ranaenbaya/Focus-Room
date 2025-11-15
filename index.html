@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Station</title>
-<link rel="stylesheet" href="styles.css">
-<script src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Station</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <div class="stats">
+        <div class="stat-box coins">
+          <span id="pointsDisplay">0 COINS</span>
+        </div>
+        <div class="stat-box time">
+          <span id="totalTimeDisplay">0m STUDIED</span>
+        </div>
+      </div>
+      <button class="shop-btn" onclick="toggleShop()">SHOP</button>
+    </div>
+
+    <div class="game-container">
+      <canvas id="gameCanvas" width="512" height="384"></canvas>
+      <div class="controls-text">ARROW KEYS / WASD TO MOVE</div>
+    </div>
+
+    <div class="study-section">
+      <div class="study-title">STUDY SESSION</div>
+      <div class="study-controls">
+        <div class="timer-display">
+          <div class="timer-time" id="timerDisplay">0:00</div>
+          <div class="timer-info" id="timerInfo">START TO EARN COINS</div>
+        </div>
+        <button class="study-btn start-btn" id="studyBtn" onclick="toggleStudy()">START</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="shopModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">SHOP</div>
+        <button class="close-btn" onclick="toggleShop()">CLOSE</button>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
