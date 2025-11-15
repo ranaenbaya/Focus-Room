@@ -8,237 +8,40 @@
     <!-- Pixel Font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Press Start 2P', cursive;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        /* Main room using your screenshot */
-        #room {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            background-image: url("image.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        /* Title */
-        #titleText {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 18px 40px;
-            border: 3px solid white;
-            border-radius: 10px;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        /* BIG Timer under the title */
-        #timerDisplay {
-            position: absolute;
-            top: 120px; /* directly under title */
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 20px 35px;
-            font-size: 38px;
-            background-color: rgba(0,0,0,0.5);
-            border: 4px solid white;
-            border-radius: 10px;
-        }
-
-        /* Points box (left side) */
-        #pointsDisplay {
-            position: absolute;
-            bottom: 160px;
-            left: 20px;
-            padding: 12px 20px;
-            background-color: rgba(0,0,0,0.5);
-            border: 4px solid white;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-
-        /* Character */
-        #character {
-            position: absolute;
-            width: 110px;
-            bottom: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            image-rendering: pixelated;
-        }
-
-        /* Pixel button styled to match your screenshot button */
-        .pixel-btn {
-            position: absolute;
-            bottom: 95px;   /* aligned over your UI button */
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 20px 30px;
-            background: #fbe4c8;
-            color: #4a2d23;
-            border: 5px solid #4a2d23;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0px 5px 0px #4a2d23;
-            text-align: center;
-        }
-
-        .pixel-btn:active {
-            box-shadow: 0px 2px 0px #4a2d23;
-            transform: translateX(-50%) translateY(3px);
-        }
-
-        /* Furniture blocks (placeholder) */
-        .furniture {
-            width: 40px;
-            height: 40px;
-            background-color: #c68c53;
-            position: absolute;
-        }
-    </style>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="room">
 
-        <!-- Title -->
-        <h1 id="titleText">Welcome to Your Focus Room</h1>
+    <div id="room">
 
         <!-- Timer -->
         <div id="timerDisplay">25:00</div>
 
-        <!-- Points -->
-        <div id="pointsDisplay">POINTS: <span id="points">0</span></div>
+        <!-- Reset Timer Button -->
+        <div id="resetTimerBtn">RESET TIMER</div>
 
         <!-- Character -->
-        <img id="character" src="pixel-art.png" alt="character">
+        <img id="character" src="https://via.placeholder.com/110x110/00BFFF/FFFFFF?text=C" alt="character">
 
-        <!-- Buy Button over in-image button -->
+        <!-- Buttons -->
         <div id="buyBtn" class="pixel-btn">BUY FURNITURE</div>
+        <div id="pointsBtn" class="pixel-btn">POINTS: <span id="points">0</span></div>
+
+        <!-- Furniture selection menu -->
+        <div id="furnitureMenu">
+            <img src="https://via.placeholder.com/60x60/FFD700/000000?text=R" data-cost="10" data-type="rug" alt="Rug">
+            <img src="https://via.placeholder.com/60x60/8B4513/FFFFFF?text=B" data-cost="20" data-type="bed" alt="Bed">
+            <img src="https://via.placeholder.com/60x60/228B22/FFFFFF?text=P" data-cost="15" data-type="plant" alt="Plant Pot">
+        </div>
 
     </div>
 
-    <script>
-        // =========================
-        // Focus Room JavaScript
-        // =========================
-
-        let totalSeconds = 25 * 60;
-        let timer = null;
-        let points = parseInt(localStorage.getItem("points")) || 0;
-        let furnitureList = JSON.parse(localStorage.getItem("furnitureList")) || [];
-
-        // DOM Elements
-        const timerDisplay = document.getElementById("timerDisplay");
-        const pointsDisplay = document.getElementById("points");
-        const room = document.getElementById("room");
-        const character = document.getElementById("character");
-        const buyBtn = document.getElementById("buyBtn");
-
-        // Load saved points
-        pointsDisplay.textContent = points;
-
-        // -------------------------
-        // Timer Functions
-        // -------------------------
-        function startTimer(duration = 25 * 60) {
-            clearInterval(timer);
-            totalSeconds = duration;
-            timer = setInterval(updateTimer, 1000);
-        }
-
-        function updateTimer() {
-            if (totalSeconds <= 0) {
-                clearInterval(timer);
-                addPoints(10);
-                alert("Session complete! +10 points 🌟");
-                totalSeconds = 25 * 60;
-                updateTimerDisplay();
-                return;
-            }
-            totalSeconds--;
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            timerDisplay.textContent =
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        // -------------------------
-        // Points System
-        // -------------------------
-        function addPoints(amount) {
-            points += amount;
-            pointsDisplay.textContent = points;
-            saveState();
-        }
-
-        // Character gives points when clicked
-        character.addEventListener("click", () => {
-            addPoints(1);
-        });
-
-        // -------------------------
-        // Furniture Buying
-        // -------------------------
-        buyBtn.addEventListener("click", () => buyFurniture());
-
-        function buyFurniture(cost = 10) {
-            if (points >= cost) {
-                points -= cost;
-                pointsDisplay.textContent = points;
-
-                addFurniture();
-                saveState();
-            } else {
-                alert("Not enough points!");
-            }
-        }
-
-        function addFurniture(x = Math.random() * (window.innerWidth - 40),
-                              y = Math.random() * (window.innerHeight - 180)) {
-            const furniture = document.createElement("div");
-            furniture.className = "furniture";
-            furniture.style.left = `${x}px`;
-            furniture.style.top = `${y}px`;
-            room.appendChild(furniture);
-
-            furnitureList.push({ x, y });
-            saveState();
-        }
-
-        // -------------------------
-        // LocalStorage Saving
-        // -------------------------
-        function saveState() {
-            localStorage.setItem("points", points);
-            localStorage.setItem("furnitureList", JSON.stringify(furnitureList));
-        }
-
-        // Spawn saved furniture
-        furnitureList.forEach(f => addFurniture(f.x, f.y));
-
-        // Auto-start timer
-        startTimer();
-    </script>
-
+    <!-- Link JS -->
+    <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
