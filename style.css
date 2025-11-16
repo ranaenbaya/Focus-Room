@@ -12,9 +12,14 @@ html, body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-image: url("background.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+
+    /* background + grid overlay */
+    background-image:
+        linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px),
+        url("background.png");
+    background-size: 20px 20px, 20px 20px, contain;
+    background-repeat: repeat, repeat, no-repeat;
     background-position: center;
 }
 
@@ -49,23 +54,13 @@ html, body {
     box-shadow: 0px 2px 0px #4a2d23;
 }
 
-/* Buttons stay centered and DO NOT move left/right */
+/* Buttons stay centered */
 #startBtn { top: 120px; left: 50%; transform: translateX(-50%); }
 #stopBtn  { top: 200px; left: 50%; transform: translateX(-50%); }
 #resetBtn { top: 280px; left: 50%; transform: translateX(-50%); }
 
-/* Shop & Points buttons */
-#buyBtn {
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-120%);
-}
-
-#pointsBtn {
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(20%);
-}
+#buyBtn { bottom: 40px; left: 50%; transform: translateX(-120%); }
+#pointsBtn { bottom: 40px; left: 50%; transform: translateX(20%); }
 
 /* Shop menu */
 #furnitureMenu {
@@ -83,13 +78,33 @@ html, body {
     gap: 10px;
 }
 
-#furnitureMenu img {
+/* Shop item container */
+.shop-item {
+    position: relative;
+    display: inline-block;
+}
+
+/* Shop images */
+.shop-item img {
     width: 60px;
     height: 60px;
     cursor: grab;
     image-rendering: pixelated;
     border: 2px solid white;
     border-radius: 5px;
+}
+
+/* Cost label overlay */
+.cost-label {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 10px;
+    padding: 1px 3px;
+    border-radius: 2px;
+    pointer-events: none;
 }
 
 /* Draggable furniture */
@@ -101,19 +116,9 @@ html, body {
     image-rendering: pixelated;
 }
 
-/* --- Per-item sizes for placed furniture --- */
-.furniture[data-type="bookshelf"] {
-    width: 250px;
-    height: auto;
-}
+/* Placed furniture sizes */
+.furniture[data-type="bookshelf"] { width: 300px; height: auto; }
+.furniture[data-type="rug"]       { width: 220px; height: auto; }
+.furniture[data-type="plant"]     { width: 130px; height: auto; }
 
-.furniture[data-type="rug"] {
-    width: 220px;
-    height: auto;
-}
-
-.furniture[data-type="plant"] {
-    width: 150px;
-    height: auto;
-}
 
