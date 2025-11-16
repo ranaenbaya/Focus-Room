@@ -12,16 +12,16 @@ html, body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-image: url("image.png");
+    background-image: url("background.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-/* BIG TIMER */
+/* TIMER DISPLAY */
 #timerDisplay {
     position: absolute;
-    top: 30px; /* updated position */
+    top: 30px;
     left: 50%;
     transform: translateX(-50%);
     padding: 20px 35px;
@@ -31,42 +31,9 @@ html, body {
     border-radius: 10px;
 }
 
-/* Reset timer button */
-#resetTimerBtn {
-    position: absolute;
-    top: 110px; /* below timer */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 60px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #fbe4c8;
-    color: #4a2d23;
-    border: 5px solid #4a2d23;
-    border-radius: 10px;
-    box-shadow: 0px 5px 0px #4a2d23;
-    text-align: center;
-}
-
-#resetTimerBtn:active {
-    box-shadow: 0px 2px 0px #4a2d23;
-    transform: translateY(3px);
-}
-
-/* Character */
-#character {
-    position: absolute;
-    width: 110px;
-    bottom: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    image-rendering: pixelated;
-}
-
-/* Buttons */
+/* Pixel button */
 .pixel-btn {
-    padding: 25px 100px;
+    padding: 20px 60px;
     background: #fbe4c8;
     color: #4a2d23;
     border: 5px solid #4a2d23;
@@ -78,11 +45,16 @@ html, body {
 }
 
 .pixel-btn:active {
-    box-shadow: 0px 2px 0px #4a2d23;
     transform: translateY(3px);
+    box-shadow: 0px 2px 0px #4a2d23;
 }
 
-/* Button positions */
+/* Buttons stay centered and DO NOT move left/right */
+#startBtn { top: 120px; left: 50%; transform: translateX(-50%); }
+#stopBtn  { top: 200px; left: 50%; transform: translateX(-50%); }
+#resetBtn { top: 280px; left: 50%; transform: translateX(-50%); }
+
+/* Shop & Points buttons */
 #buyBtn {
     bottom: 40px;
     left: 50%;
@@ -95,10 +67,10 @@ html, body {
     transform: translateX(20%);
 }
 
-/* Furniture selection menu */
+/* Shop menu */
 #furnitureMenu {
     position: absolute;
-    bottom: 100px;
+    bottom: 110px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0,0,0,0.8);
@@ -120,11 +92,28 @@ html, body {
     border-radius: 5px;
 }
 
-/* Furniture in room */
+/* Draggable furniture */
 .furniture {
-    width: 60px;
+    width: 60px; /* default fallback */
     height: 60px;
     position: absolute;
     cursor: grab;
     image-rendering: pixelated;
 }
+
+/* --- Per-item sizes for placed furniture --- */
+.furniture[data-type="bookshelf"] {
+    width: 250px;
+    height: auto;
+}
+
+.furniture[data-type="rug"] {
+    width: 220px;
+    height: auto;
+}
+
+.furniture[data-type="plant"] {
+    width: 150px;
+    height: auto;
+}
+
