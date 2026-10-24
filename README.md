@@ -1,4 +1,4 @@
-# Focus Room
+# Focus Room (CS Girlies Hackathon)
 
 Focus Room Game is a fun pixel-style game where you can track your focus sessions, earn points, and decorate your virtual room. It combines productivity with creativity in a retro, pixel art style.
 
